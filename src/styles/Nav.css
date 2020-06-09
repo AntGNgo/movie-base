@@ -1,0 +1,22 @@
+.nav {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background: rgb(1, 1, 53);
+    color: white
+}
+
+.nav ul {
+    display: flex;
+    align-items: center;
+    list-style-type: none;
+}
+
+.nav a {
+    margin-left: 20px;
+    border: 1px solid white;
+    border-radius: 5px;
+    padding: 5px;
+    color: white;
+    text-decoration: none;
+}

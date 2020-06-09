@@ -1,26 +1,50 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from 'react';
+import './styles/App.css';
+import Nav from './components/Nav'
+import MovieCard from './components/MovieCard'
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+
+class App extends Component {
+  constructor() {
+    super()
+    this.state = {
+      movieTitle : null,
+      movieYear : null,
+      moviePlot: null
+    }
+  }
+
+
+  getMovieData = (search) => {
+    let that = this
+    let query = search.search.split(' ').join('+')
+    fetch('http://www.omdbapi.com/?apikey=797a1e18&t=' + query)
+      .then(res => res.json())
+      .then(data => {
+        that.setState({
+          movieTitle: data.Title,
+          movieYear: data.Year,
+          moviePlot: data.Plot
+        })
+      })
+  }
+
+  render() {
+    return(
+      <div>
+        <Nav getMovieData={this.getMovieData}/>
+        <MovieCard movie={this.state} />
+      </div>
+    )
+  }
 }
 
 export default App;
+
+
+//Nav Bar
+//Search
+//Main View
+//Movie popup
+
+//www.google.com/how to wash+your+car
