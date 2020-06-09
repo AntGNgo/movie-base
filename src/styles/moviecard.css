@@ -1,5 +1,29 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
+
 .movie-card {
+    margin: 0 auto;
+    font-family: 'Open Sans', sans-serif;
     display: flex;
-    flex-direction: column;
-    align-items: center;
+    justify-content: center;
 }
+
+.movie-card img {
+    margin-top: 40px;
+}
+.movie-details {
+    display: flex;
+    flex-direction: column ;
+    justify-content: center;
+    width: 50vw;
+}
+
+.movie-details h1 {
+    font-size: 5em;
+    margin-bottom: 0;
+}
+
+.movie-details h3 {
+    line-height: 1.8em;
+    font-size: 1.3em;
+}
+

@@ -28,8 +28,6 @@ class App extends Component {
       .then(data => {
         baseImageURL = data.images.secure_base_url
         configData = data.images
-        console.log('config', data)
-        console.log(baseImageURL)
         runSearch(keyword)
       })
   
@@ -41,9 +39,9 @@ class App extends Component {
         .then(data => {
           that.setState({
             movieTitle: data.results[0].title,
-            movieYear: data.results[0].release_date,
+            movieYear: data.results[0].release_date.slice(0,4),
             moviePlot:  data.results[0].overview,
-            moviePoster: baseImageURL +  'w342' + data.results[0].poster_path        
+            moviePoster: baseImageURL +  'w500' + data.results[0].poster_path        
           })
         })
     }  
