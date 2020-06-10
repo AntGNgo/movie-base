@@ -8,10 +8,6 @@ class SearchResults extends Component {
         }
     }
 
-    getDerivedStateFromProps(nextProps, prevState) {
-        if(nextProps.)
-    }
-
 
     render(){
         return(
