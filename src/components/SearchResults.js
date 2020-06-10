@@ -1,11 +1,26 @@
-import React from 'react'
+import React, { Component } from 'react'
 
-const SearchResults = ({ searchResults }) => {
-    return(
-        <div>
-            <p>{searchResults.searchList.title}</p>
-        </div>
-    )
+class SearchResults extends Component {
+    constructor() {
+        super()
+        this.state = {
+            searchList: []
+        }
+    }
+
+    getDerivedStateFromProps(nextProps, prevState) {
+        if(nextProps.)
+    }
+
+
+    render(){
+        return(
+            <div>
+                <h1>DAMN!</h1>
+            </div>
+        )
+    }
 }
+
 
 export default SearchResults

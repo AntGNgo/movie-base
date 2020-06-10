@@ -9,7 +9,7 @@ class App extends Component {
     super()
     this.state = {
       searchList : [],
-      movieTitles : ['dum'],
+      movieTitles : [],
       movieYears : [],
       moviePlots: [],
       moviePosters: []
@@ -39,31 +39,20 @@ class App extends Component {
         .then(resp => resp.json())
         .then(data => {
           console.log(data.results)
-          // for(let i=0; i<data.results.length; i++){
-          //   let titleData = that.state.movieTitle.concat(data.results[i].title)
-          //   that.setState({
-          //     movieTitles: titleData
-          //   })
-          // }
-          // that.setState({
-          //   searchList:  data.results,
-          //   movieTitles: data.results.title,
-          //   movieYear: data.results.release_date.slice(0,4),
-          //   moviePlot:  data.results.overview,
-          //   moviePoster: baseImageURL +  'w500' + data.results[0].poster_path        
-          // })
+          let searchArray = that.state.searchList.concat(...data.results)
+          that.setState({
+            searchList: [...searchArray]
+          })
        }) 
       }  
     }
 
 
   render() {
-    console.log(this.state.searchList)
-    console.log(this.state.searchList.movieTitles)
     return(
       <div>
         <Nav getMovieData={this.getMovieData}/>
-        <SearchResults searchResults={this.state} />
+        <SearchResults search={this.state} />
         <MovieCard movie={this.state} />
       </div>
     )
