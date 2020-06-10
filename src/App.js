@@ -52,7 +52,7 @@ class App extends Component {
     return(
       <div>
         <Nav getMovieData={this.getMovieData}/>
-        <SearchResults search={this.state} />
+        <SearchResults search={this.state.searchList} />
         <MovieCard movie={this.state} />
       </div>
     )

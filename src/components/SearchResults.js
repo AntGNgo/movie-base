@@ -1,18 +1,26 @@
 import React, { Component } from 'react'
 
 class SearchResults extends Component {
-    constructor() {
-        super()
+    constructor(props) {
+        super(props)
         this.state = {
-            searchList: []
+            searchList: null
         }
     }
 
+    componentDidUpdate(prevProps) {
+        if (prevProps.search !== this.props.search) {
+            this.setState({
+                searchList: this.props.search.searchList
+            })
+        }
+    }
 
     render(){
+        console.log("here", this.state.searchList)
         return(
             <div>
-                <h1>DAMN!</h1>
+                <h1></h1>
             </div>
         )
     }
