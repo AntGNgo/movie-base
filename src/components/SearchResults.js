@@ -2,7 +2,9 @@ import React from 'react'
 
 const SearchResults = ({ searchResults }) => {
     return(
-        <div>he</div>
+        <div>
+            <p>{searchResults.searchList.title}</p>
+        </div>
     )
 }
 

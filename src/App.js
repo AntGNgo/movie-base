@@ -8,11 +8,11 @@ class App extends Component {
   constructor() {
     super()
     this.state = {
-      searchList : null,
-      movieTitle : null,
-      movieYear : null,
-      moviePlot: null,
-      moviePoster: null
+      searchList : [],
+      movieTitles : ['dum'],
+      movieYears : [],
+      moviePlots: [],
+      moviePosters: []
     }
   }
 
@@ -38,26 +38,33 @@ class App extends Component {
       fetch('https://api.themoviedb.org/3/search/movie?api_key=0017e637b5175be645272456f9607e35&language=en-US&query=' + query)
         .then(resp => resp.json())
         .then(data => {
-          console.log(data)
-          that.setState({
-            searchList:  data.results,
-            movieTitle: data.results[0].title,
-            movieYear: data.results[0].release_date.slice(0,4),
-            moviePlot:  data.results[0].overview,
-            moviePoster: baseImageURL +  'w500' + data.results[0].poster_path        
-          })
-        })
-    }  
+          console.log(data.results)
+          // for(let i=0; i<data.results.length; i++){
+          //   let titleData = that.state.movieTitle.concat(data.results[i].title)
+          //   that.setState({
+          //     movieTitles: titleData
+          //   })
+          // }
+          // that.setState({
+          //   searchList:  data.results,
+          //   movieTitles: data.results.title,
+          //   movieYear: data.results.release_date.slice(0,4),
+          //   moviePlot:  data.results.overview,
+          //   moviePoster: baseImageURL +  'w500' + data.results[0].poster_path        
+          // })
+       }) 
+      }  
     }
 
 
   render() {
     console.log(this.state.searchList)
+    console.log(this.state.searchList.movieTitles)
     return(
       <div>
         <Nav getMovieData={this.getMovieData}/>
+        <SearchResults searchResults={this.state} />
         <MovieCard movie={this.state} />
-        <SearchResults searchResults={this.state.searchList} />
       </div>
     )
   }
