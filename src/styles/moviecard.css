@@ -7,6 +7,17 @@
     justify-content: center;
 }
 
+.movie-card button {
+    position: absolute;
+    font-size: 20px;
+    background: none;
+    cursor: pointer ;
+    border: none;
+    border-bottom: 1px solid black;
+    left: 225px;
+    top: 140px;
+}
+
 .movie-card img {
     margin-top: 40px;
 }
@@ -25,5 +36,6 @@
 .movie-details h3 {
     line-height: 1.8em;
     font-size: 1.3em;
+    padding-right: 85px;
 }
 

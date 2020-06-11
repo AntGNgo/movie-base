@@ -11,6 +11,7 @@ class App extends Component {
   constructor() {
     super()
     this.state = {
+      amHome: true,
       showList : true,
       searchList : [],
       selectedMovie: null,
@@ -25,7 +26,8 @@ class App extends Component {
     let baseImageURL = null
     
     that.setState({
-      showList: true
+      showList: true,
+      amHome : false
     })
 
     const posterConfig = "https://api.themoviedb.org/3/configuration?api_key=0017e637b5175be645272456f9607e35"
@@ -67,6 +69,7 @@ class App extends Component {
   render() {
 //Logic decides which to show
     const renderPage = () => {
+      console.log('here')
       if(this.state.showList){
         let viewList = this.state.searchList.map(item => {
           return(
@@ -78,15 +81,25 @@ class App extends Component {
         return viewList
       }else {
         return(
-          <MovieCard posterData={this.state.posterData} movie={this.state.selectedMovie}/>
+          <MovieCard renderPage={() => this.renderPage()}posterData={this.state.posterData} movie={this.state.selectedMovie}/>
         )
       }
     }
+
+//Check to see if on homepage
+    const renderHome = () => {
+        if(this.state.amHome) {
+          return(
+            <Home />
+          )
+        }
+    }
+
 //Page render return
     return(
         <div>
           <Nav getMovieData={this.getMovieData}/>
-          <Home />
+          {renderHome()}
           {renderPage()}
         </div>
         

@@ -1,9 +1,15 @@
+.movie-list{
+    margin: 25px auto;
+    border-bottom: 1px solid black;
+    border-left: 25px solid #4DCCBD;
+}
+
 .movie-list {
-    transition: ease-in 150ms;
+    transition: ease-in-out 150ms;
 }
 
 .movie-list:hover {
-    background: #6b97ffb6;
+    background: #4DCCBD;
     cursor: pointer;
 }
 
