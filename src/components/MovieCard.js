@@ -6,8 +6,6 @@ import RenderResults from './RenderResults'
 
 const MovieCard = ({ posterData, movie, backButton }) => {
     return (
-        
-            
             <div className="movie-card">
                 <div className='movie-details'>
                     <button onClick={backButton}>Back</button>
