@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import '../styles/Nav.css'
-
+import logo from '../assets/logo.png'
 
 class Nav extends Component {
     constructor() {
@@ -12,10 +12,11 @@ class Nav extends Component {
     
     handleSubmit = (e) => {
         e.preventDefault();
+        if(this.state.search !== ''){
         this.props.getMovieData(this.state)
         this.setState({
             search: ''
-        })
+        })}
     }
 
     handleChange = (e) => {
@@ -26,7 +27,7 @@ class Nav extends Component {
     render() {
         return (
             <div className="nav">
-                <h1>movieBase</h1>
+                <img src={logo} alt="" width="248px" height='75px'/>
                 <form onSubmit={this.handleSubmit}>
                     <input type="text" placeholder='Search...' onChange={this.handleChange} value={this.state.search}/>
                     <button>Search!</button>

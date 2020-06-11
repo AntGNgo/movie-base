@@ -1,0 +1,19 @@
+.movie-list {
+    transition: ease-in 150ms;
+}
+
+.movie-list:hover {
+    background: #6b97ffb6;
+    cursor: pointer;
+}
+
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.movie-list-container {
+    width: 90vw;
+    margin: 0 auto
+}
