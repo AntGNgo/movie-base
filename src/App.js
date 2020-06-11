@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
 import './styles/App.css';
 import Nav from './components/Nav'
+import Home from './components/Home'
 import MovieCard from './components/MovieCard'
 import RenderResults from './components/RenderResults'
+
+
 
 class App extends Component {
   constructor() {
@@ -62,7 +65,6 @@ class App extends Component {
   }
 
   render() {
-    console.log(this.state.posterData)
 //Logic decides which to show
     const renderPage = () => {
       if(this.state.showList){
@@ -80,10 +82,11 @@ class App extends Component {
         )
       }
     }
-    
+//Page render return
     return(
         <div>
           <Nav getMovieData={this.getMovieData}/>
+          <Home />
           {renderPage()}
         </div>
         
