@@ -1,17 +1,22 @@
 import React, { Component } from 'react';
 import './styles/App.css';
 import Nav from './components/Nav'
+import Home from './components/Home'
 import MovieCard from './components/MovieCard'
 import RenderResults from './components/RenderResults'
+
 
 class App extends Component {
   constructor() {
     super()
     this.state = {
+      amHome: true,
       showList : true,
       searchList : [],
       selectedMovie: null,
-      posterData : ""
+      basePoster : "",
+      posterData : "",
+      backPressed: false
     }
   }
 
@@ -22,7 +27,8 @@ class App extends Component {
     let baseImageURL = null
     
     that.setState({
-      showList: true
+      showList: true,
+      amHome : false
     })
 
     const posterConfig = "https://api.themoviedb.org/3/configuration?api_key=0017e637b5175be645272456f9607e35"
@@ -43,7 +49,7 @@ class App extends Component {
           console.log(data)
           that.setState({
             searchList: [...data.results],
-            posterData: baseImageURL + "w342"
+            basePoster: baseImageURL + "w342"
           })
        }) 
       }  
@@ -52,19 +58,30 @@ class App extends Component {
   //Click to show MovieCard
     handleClick = (movie) => {
       console.log("I was clicked!?")
-      
+      let posterData = this.state.basePoster + movie.poster_path
       this.setState(prevState => ({
           showList: !prevState.showList,
           selectedMovie: {...movie},
-          posterData : prevState.posterData + movie.poster_path
+          posterData
       }))
       
   }
 
+
+//Back buttton
+  backButton = () => {
+    this.setState(prevState => ({
+      posterData: this.state.basePoster,
+      showList : !prevState.showList,
+      backPressed: !prevState.backPressed
+    }))
+  }
+
+
   render() {
-    console.log(this.state.posterData)
 //Logic decides which to show
     const renderPage = () => {
+      console.log(this.state.posterData)
       if(this.state.showList){
         let viewList = this.state.searchList.map(item => {
           return(
@@ -76,16 +93,28 @@ class App extends Component {
         return viewList
       }else {
         return(
-          <MovieCard posterData={this.state.posterData} movie={this.state.selectedMovie}/>
+          <MovieCard backButton={this.backButton} posterData={this.state.posterData} movie={this.state.selectedMovie}/>
         )
       }
     }
-    
+
+//Check to see if on homepage
+    const renderHome = () => {
+        if(this.state.amHome) {
+          return(
+            <Home />
+          )
+        }
+    }
+
+//Page render return
     return(
-        <div>
-          <Nav getMovieData={this.getMovieData}/>
-          {renderPage()}
-        </div>
+          <div>
+            <Nav getMovieData={this.getMovieData}/>
+            {renderHome()}
+            {renderPage()}
+          </div>
+
         
 
     )
@@ -93,11 +122,3 @@ class App extends Component {
 }
 
 export default App;
-
-
-//Nav Bar
-//Search
-//Main View
-//Movie popup
-
-//www.google.com/how to wash+your+car
