@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import '../styles/Nav.css'
 import logo from '../assets/logo.png'
 
+
 class Nav extends Component {
     constructor() {
         super()
