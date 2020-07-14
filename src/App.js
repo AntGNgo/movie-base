@@ -23,7 +23,7 @@ class App extends Component {
 //Poster Data
   getMovieData = (keyword) => {
     let that = this
-    let configData = null
+    // let configData = null
     let baseImageURL = null
     
     that.setState({
@@ -36,7 +36,7 @@ class App extends Component {
       .then(resp => resp.json())
       .then(data => {
         baseImageURL = data.images.secure_base_url
-        configData = data.images
+        // configData = data.images
         runSearch(keyword)
       })
   

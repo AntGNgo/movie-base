@@ -1,6 +1,6 @@
 import React from 'react'
 import '../styles/moviecard.css'
-import RenderResults from './RenderResults'
+// import RenderResults from './RenderResults'
 
 
 
