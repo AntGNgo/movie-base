@@ -4,16 +4,12 @@ import '../styles/moviecard.css'
 
 
 
-const MovieCard = ({ posterData, movie, backButton }) => {
+const MovieCard = ({ movie }) => {
     return (
-            <div className="movie-card">
-                <div className='movie-details'>
-                    <button onClick={backButton}>Back</button>
-                    <h1>{movie.title}</h1>
-                    <h2>{movie.release_date.slice(0, 4)}</h2>
-                    <h3>{movie.overview}</h3>
-                </div>
-                <img src={posterData} alt={movie.title} />
+            <div>
+                {movie.poster.includes('null') ? <h1>Here</h1> : <img src={movie.poster} alt=""/>}
+                <h1>{movie.title}</h1>
+                <p>{movie.year}</p>
             </div>
     )
 }

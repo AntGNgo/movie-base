@@ -1,41 +1,26 @@
-import React, { Component } from 'react'
-import '../styles/Nav.css'
+import React, { useState } from 'react'
 import logo from '../assets/logo.png'
 
+const Nav = ({ runSearch }) => {
+    const [search, setSearch] = useState('')
 
-class Nav extends Component {
-    constructor() {
-        super()
-        this.state = {
-            search: ''
-        }
-    }
-    
-    handleSubmit = (e) => {
-        e.preventDefault();
-        if(this.state.search !== ''){
-        this.props.getMovieData(this.state)
-        this.setState({
-            search: ''
-        })}
+    const onChange = (e) => {
+        setSearch(e.target.value)
     }
 
-    handleChange = (e) => {
-        this.setState({
-            search: e.target.value
-        })
+    const onSubmit = (e) => {
+        e.preventDefault()
+        runSearch(search)
     }
-    render() {
-        return (
-            <div className="nav">
-                <img src={logo} alt="" width="248px" height='75px'/>
-                <form onSubmit={this.handleSubmit}>
-                    <input type="text" placeholder='Search...' onChange={this.handleChange} value={this.state.search}/>
-                    <button>Search!</button>
-                </form>
-            </div>
-        )
-    }
+
+    return (
+        <div>
+            <form onSubmit={onSubmit}>
+                <input type="text" onChange={onChange} />
+                <button>Search</button>
+            </form>
+        </div>
+    )
 }
 
 export default Nav
