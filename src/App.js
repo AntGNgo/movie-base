@@ -1,124 +1,44 @@
-import React, { Component } from 'react';
-import './styles/App.css';
-import Nav from './components/Nav'
-import Home from './components/Home'
-import MovieCard from './components/MovieCard'
-import RenderResults from './components/RenderResults'
+import React, { useState, useEffect } from 'react'
+import axios from 'axios'
 
-
-class App extends Component {
-  constructor() {
-    super()
-    this.state = {
-      amHome: true,
-      showList : true,
-      searchList : [],
-      selectedMovie: null,
-      basePoster : "",
-      posterData : "",
-      backPressed: false
-    }
-  }
-
-//Poster Data
-  getMovieData = (keyword) => {
-    let that = this
-    // let configData = null
-    let baseImageURL = null
+const App = () => {
+    const [searchResults, setSearchResults] = useState([])
     
-    that.setState({
-      showList: true,
-      amHome : false
-    })
-
-    const posterConfig = "https://api.themoviedb.org/3/configuration?api_key=0017e637b5175be645272456f9607e35"
-    fetch(posterConfig)
-      .then(resp => resp.json())
-      .then(data => {
-        baseImageURL = data.images.secure_base_url
-        // configData = data.images
-        runSearch(keyword)
-      })
-  
-  
     const runSearch = (keyword) => {
-      let query = keyword.search.split(' ').join('+')
-      fetch('https://api.themoviedb.org/3/search/movie?api_key=0017e637b5175be645272456f9607e35&language=en-US&query=' + query)
-        .then(resp => resp.json())
-        .then(data => {
-          console.log(data)
-          that.setState({
-            searchList: [...data.results],
-            basePoster: baseImageURL + "w342"
+        const baseURL = 'http://image.tmdb.org/t/p/original'
+        let query = keyword.split(' ').join('+')
+        axios.get('https://api.themoviedb.org/3/search/movie?api_key=0017e637b5175be645272456f9607e35&language=en-US&query=' + query)
+          .then(response => {
+
+              setSearchResults(response.data.results.map((movie) => {
+                  return {
+                      title: movie.title,
+                      year: movie.release_date,
+                      poster: baseURL + movie.backdrop_path
+                  }
+              }))
           })
-       }) 
-      }  
-    }
-
-  //Click to show MovieCard
-    handleClick = (movie) => {
-      console.log("I was clicked!?")
-      let posterData = this.state.basePoster + movie.poster_path
-      this.setState(prevState => ({
-          showList: !prevState.showList,
-          selectedMovie: {...movie},
-          posterData
-      }))
-      
-  }
-
-
-//Back buttton
-  backButton = () => {
-    this.setState(prevState => ({
-      posterData: this.state.basePoster,
-      showList : !prevState.showList,
-      backPressed: !prevState.backPressed
-    }))
-  }
-
-
-  render() {
-//Logic decides which to show
-    const renderPage = () => {
-      console.log(this.state.posterData)
-      if(this.state.showList){
-        let viewList = this.state.searchList.map(item => {
-          return(
-            <div key={item.id} onClick={() => this.handleClick(item)}>
-              <RenderResults result={item} />
+        } 
+    
+    const movies = searchResults.map((movie) => {
+        return (
+            <div>
+                {movie.poster.includes('null') ? <h1>Here</h1> : <img src={movie.poster} alt=""/>}
+                <h1>{movie.title}</h1>
+                <p>{movie.year}</p>
             </div>
-          ) 
-        })
-        return viewList
-      }else {
-        return(
-          <MovieCard backButton={this.backButton} posterData={this.state.posterData} movie={this.state.selectedMovie}/>
+
         )
-      }
-    }
+    })
+    
 
-//Check to see if on homepage
-    const renderHome = () => {
-        if(this.state.amHome) {
-          return(
-            <Home />
-          )
-        }
-    }
-
-//Page render return
-    return(
-          <div>
-            <Nav getMovieData={this.getMovieData}/>
-            {renderHome()}
-            {renderPage()}
-          </div>
-
-        
-
+    return (
+        <div>
+            <h1>movieBase</h1>
+            <button onClick={() => runSearch('ponyo')}>Click me to test</button>
+            {movies}
+        </div>
     )
-  }
 }
 
-export default App;
+export default App
