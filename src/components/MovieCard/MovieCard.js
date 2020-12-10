@@ -1,14 +1,11 @@
 import React from 'react'
-import '../styles/moviecard.css'
-// import RenderResults from './RenderResults'
-
-
+import './moviecard.css'
 
 const MovieCard = ({ movie }) => {
     return (
-            <div>
+            <div className='card'>
                 {movie.poster.includes('null') ? <h1>Here</h1> : <img src={movie.poster} alt=""/>}
-                <h1>{movie.title}</h1>
+                <h2>{movie.title}</h2>
                 <p>{movie.year}</p>
             </div>
     )
